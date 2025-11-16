@@ -1,3 +1,4 @@
+/// <reference types='codeceptjs' />
 const { I } = inject();
 
 class CartPage {
@@ -54,4 +55,4 @@ class CartPage {
   }
 }
 
-export = new CartPage();
+export default new CartPage();

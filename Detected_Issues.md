@@ -91,6 +91,12 @@ Screenshot: `output/Problem_user_adds_item_from_product_detail_page_@web_@cart_@
 - Test is tagged with @bug in feature file
 - Overall test pass rate: 11/12 (92%)
 
+### Additional Observations
+
+- Adding product directly by clicking "Add to cart" button from the products list page - product is added normally
+- Even when this bug occurs (empty cart), it is possible to click the "Checkout" button despite the cart being empty
+- The application does not prevent access to the checkout process with an empty cart
+
 ### Test Results Summary
 
 **Authentication** (2/2 passed)

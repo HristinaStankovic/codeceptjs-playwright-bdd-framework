@@ -1,5 +1,5 @@
+/// <reference types='codeceptjs' />
 const { I } = inject();
-
 
 class ProductsPage {
   private inventoryItem = '.inventory_item';
@@ -69,4 +69,4 @@ class ProductsPage {
   }
 }
 
-export = new ProductsPage();
+export default new ProductsPage();

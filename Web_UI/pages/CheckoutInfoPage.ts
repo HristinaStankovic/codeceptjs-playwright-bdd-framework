@@ -1,3 +1,4 @@
+/// <reference types='codeceptjs' />
 const { I } = inject();
 
 class CheckoutInfoPage {
@@ -18,4 +19,4 @@ class CheckoutInfoPage {
   }
 }
 
-export = new CheckoutInfoPage();
+export default new CheckoutInfoPage();

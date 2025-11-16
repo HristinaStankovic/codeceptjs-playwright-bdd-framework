@@ -1,5 +1,5 @@
+/// <reference types='codeceptjs' />
 const { I } = inject();
-
 
 type UserRole = 'standard_user' | 'problem_user' | 'locked_out_user';
 
@@ -37,4 +37,4 @@ class LoginPage {
   }
 }
 
-export = new LoginPage();
+export default new LoginPage();

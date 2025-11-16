@@ -217,8 +217,15 @@ npm run clean && npm run test:web:headless; npm run allure:generate && npm run a
 
 For both API and Web tests:
 
+API and Web UI testing, including Allure report:
+
 ```bash
 npm run clean && npm run test:api; npm run test:web; npm run allure:generate && npm run allure:serve
+```
+API and Web testing in headless mode:
+
+```bash
+npm run clean && npm run test:api; npm run test:web:headless; npm run allure:generate && npm run allure:serve
 ```
 
 **To automate cleanup** (optional), modify package.json scripts:

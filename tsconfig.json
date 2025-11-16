@@ -13,11 +13,13 @@
     "baseUrl": "."
   },
   "include": [
+    "global.d.ts",
     "steps.d.ts",
     "steps_file.ts",
     "steps/**/*.ts",
     "pages/**/*.ts",
     "API_tests/**/*.ts",
+    "Web_UI/**/*.ts",
     "features/**/*.ts"
   ]
 }
