@@ -90,12 +90,14 @@ codecept.conf.ts                # Main configuration
 
 # Setup
 
+After cloning the project from GitHub, run these commands:
+
 ```bash
 npm install
 npx playwright install
 ```
 
-Need Node.js 18 or newer.
+**Prerequisites:** Node.js 18 or newer.
 
 # Running tests
 

@@ -76,7 +76,13 @@ Need an API key which gets added automatically to request headers.
 
 # Setup
 
+After cloning the project from GitHub, run this command:
+
+```bash
 npm install
+```
+
+**Prerequisites:** Node.js 18 or newer.
 
 # Config
 
