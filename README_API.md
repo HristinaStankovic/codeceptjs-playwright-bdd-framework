@@ -82,7 +82,7 @@ After cloning the project from GitHub, run this command:
 npm install
 ```
 
-**Prerequisites:** Node.js 18 or newer.
+It is necessary to have Node.js 18 or newer on your local machine.
 
 # Config
 

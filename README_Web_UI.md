@@ -97,7 +97,7 @@ npm install
 npx playwright install
 ```
 
-**Prerequisites:** Node.js 18 or newer.
+It is necessary to have Node.js 18 or newer on your local machine.
 
 # Running tests
 
