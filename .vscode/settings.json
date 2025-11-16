@@ -1,0 +1,20 @@
+{
+  "cucumberautocomplete.steps": [
+    "Web_UI/steps/**/*.ts",
+    "API_tests/steps/**/*.ts"
+  ],
+  "cucumberautocomplete.syncfeatures": "Web_UI/features/**/*.feature",
+  "cucumberautocomplete.strictGherkinCompletion": true,
+  "cucumberautocomplete.smartSnippets": true,
+  "cucumberautocomplete.stepsInvariants": true,
+  "cucumberautocomplete.customParameters": [
+    {
+      "parameter": "{string}",
+      "value": "\"([^\"]*)\""
+    },
+    {
+      "parameter": "{int}",
+      "value": "(\\d+)"
+    }
+  ]
+}
