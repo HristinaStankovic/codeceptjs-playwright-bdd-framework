@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Test outputs
+output/
+allure-report/
+allure-results/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
