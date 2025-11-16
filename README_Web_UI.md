@@ -101,6 +101,27 @@ npx playwright install
 
 It is necessary to have Node.js 18 or newer on your local machine.
 
+## IDE navigation setup
+
+For VS Code users who want to jump from feature file steps directly to their step definitions (Cmd+Click on Mac, Ctrl+Click on Windows), make sure you have the `.vscode/settings.json` file in the project root. This file configures the Cucumber extension to locate step definitions in both Web_UI and API_tests folders.
+
+The settings file should already be included in the repository. If it's missing, create `.vscode/settings.json` with this content:
+
+```json
+{
+  "cucumberautocomplete.steps": [
+    "Web_UI/steps/**/*.ts",
+    "API_tests/steps/**/*.ts"
+  ],
+  "cucumberautocomplete.syncfeatures": "Web_UI/features/**/*.feature",
+  "cucumberautocomplete.strictGherkinCompletion": true,
+  "cucumberautocomplete.smartSnippets": true,
+  "cucumberautocomplete.stepsInvariants": true
+}
+```
+
+After adding the file, reload VS Code (`Cmd+Shift+P` - "Developer: Reload Window") for the changes to take effect.
+
 # Running tests
 
 Regular mode with browser visible:

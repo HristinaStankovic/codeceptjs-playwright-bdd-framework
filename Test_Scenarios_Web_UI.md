@@ -116,10 +116,10 @@ Verifies that badge updates accurately with each add/remove action.
 Steps:
 
 1. Badge not visible (empty cart)
-2. Add first product → badge: "1"
-3. Add second product → badge: "2"
-4. Add third product → badge: "3"
-5. Remove one → badge: "2"
+2. Add first product - badge: "1"
+3. Add second product - badge: "2"
+4. Add third product - badge: "3"
+5. Remove one - badge: "2"
 
 Expected: Badge updates in real-time.
 
@@ -228,7 +228,7 @@ Expected: Complete checkout flow successfully finished.
 
 Page Object flow:
 
-- ProductsPage → CartPage → CheckoutInfoPage → CheckoutOverviewPage → CheckoutCompletePage
+- ProductsPage - CartPage - CheckoutInfoPage - CheckoutOverviewPage - CheckoutCompletePage
 
 ### Scenario 11: Validate overview page
 
