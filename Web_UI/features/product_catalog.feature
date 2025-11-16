@@ -8,12 +8,12 @@ Feature: Product Catalog and Sorting
         When Sort products by name
         Then Products should be sorted alphabetically
 
-    @web @products @sorting @sort-price @scenario6
+    @web @products @sorting @sort-price @scenario4
     Scenario: Sort products by price low to high
         When Sort products by price low to high
         Then Products should be sorted by price ascending
 
-    @web @products @product-details @scenario2
+    @web @products @product-details @scenario5
     Scenario: View product details and add to cart
         When Open product "Sauce Labs Backpack"
         And Add product to the cart from product page

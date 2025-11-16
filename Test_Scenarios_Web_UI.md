@@ -4,14 +4,14 @@ Detailed description of test scenarios for the SauceDemo application.
 
 ## Organization
 
-Tests are divided into 4 feature files by functionality. Total of 12 scenarios, 11 pass.
+Tests are divided into 5 feature files by functionality. Total of 13 scenarios, 11 pass, 2 fail (problem_user bugs).
 
 ## Authentication (2 scenarios)
 
 ### Scenario 1: Standard user login
 
 ID: TC-AUTH-001
-Tag: @web @authentication @standard-login
+Tag: @web @authentication @standard-login @scenario1
 Status: Passes
 
 Verifies that a user with valid credentials can log in.
@@ -36,7 +36,7 @@ Then User should see the products page
 ### Scenario 2: Locked out user
 
 ID: TC-AUTH-002  
-Tag: @web @authentication @locked-out  
+Tag: @web @authentication @locked-out @scenario2  
 Status: Passes
 
 Verifies that a locked out user cannot access the application.
@@ -51,12 +51,12 @@ Steps:
 
 Expected: Login is rejected with appropriate message.
 
-## Shopping Cart (5 scenarios)
+## Shopping Cart (4 scenarios)
 
-### Scenario 1: Adding all products
+### Scenario 6: Adding all products
 
 ID: TC-CART-001  
-Tag: @web @cart @add-items  
+Tag: @web @cart @add-items @scenario6  
 Status: Passes
 
 Adds all 6 products to cart and checks badge.
@@ -71,10 +71,10 @@ Steps:
 
 Expected: All products are in cart, badge shows 6.
 
-### Scenario 2: Removing all products
+### Scenario 7: Removing all products
 
 ID: TC-CART-002  
-Tag: @web @cart @remove-items  
+Tag: @web @cart @remove-items @scenario7  
 Status: Passes
 
 Steps:
@@ -87,10 +87,10 @@ Steps:
 
 Expected: Cart is empty.
 
-### Scenario 3: Removing specific product
+### Scenario 8: Removing specific product
 
 ID: TC-CART-003  
-Tag: @web @cart @remove-specific  
+Tag: @web @cart @remove-specific-item @scenario8  
 Status: Passes
 
 Removes "Sauce Labs Backpack" from cart while other products remain.
@@ -105,10 +105,10 @@ Steps:
 
 Expected: Backpack is removed, other 5 are still in cart.
 
-### Scenario 4: Badge validation
+### Scenario 9: Badge validation
 
 ID: TC-CART-004  
-Tag: @web @cart @badge-validation  
+Tag: @web @cart @verify-count @scenario9  
 Status: Passes
 
 Verifies that badge updates accurately with each add/remove action.
@@ -123,33 +123,12 @@ Steps:
 
 Expected: Badge updates in real-time.
 
-### Scenario 5: Problem user bug
-
-ID: TC-CART-005  
-Tag: @web @cart @bug @problem-user  
-Status: Fails (known bug)
-
-Documents the issue with problem_user account.
-
-Steps:
-
-1. Log in as problem_user
-2. Add "Sauce Labs Backpack" to cart
-3. Open cart
-4. Check product name and price
-
-Expected: Backpack is displayed with correct name and price ($29.99).
-
-Actual: Wrong product is displayed.
-
-Note: This is an intentional bug in the test application. Test is marked with @bug tag.
-
 ## Product Catalog (3 scenarios)
 
-### Scenario 1: Sort by name
+### Scenario 3: Sort by name
 
 ID: TC-PROD-001  
-Tag: @web @products @sort-name  
+Tag: @web @products @sort-name @scenario3  
 Status: Passes
 
 Sorts products by name A-Z.
@@ -172,10 +151,10 @@ Expected order:
 
 Implementation: Compares name list with sorted list.
 
-### Scenario 2: Sort by price
+### Scenario 4: Sort by price
 
 ID: TC-PROD-002  
-Tag: @web @products @sort-price  
+Tag: @web @products @sort-price @scenario4  
 Status: Passes
 
 Sorts products by price from lowest to highest.
@@ -195,10 +174,10 @@ Expected order:
 5. $29.99 - Backpack
 6. $49.99 - Fleece Jacket
 
-### Scenario 3: Product details page
+### Scenario 5: Product details page
 
 ID: TC-PROD-003  
-Tag: @web @products @product-details  
+Tag: @web @products @product-details @scenario5  
 Status: Passes
 
 Opens product page and checks details.
@@ -218,10 +197,10 @@ Expected: All product information is displayed.
 
 ## Checkout (2 scenarios)
 
-### Scenario 1: Complete purchase
+### Scenario 10: Complete purchase
 
 ID: TC-CHECK-001  
-Tag: @web @checkout @complete-order  
+Tag: @web @checkout @complete-purchase @e2e @scenario10  
 Status: Passes
 
 End-to-end purchase test.
@@ -251,10 +230,10 @@ Page Object flow:
 
 - ProductsPage → CartPage → CheckoutInfoPage → CheckoutOverviewPage → CheckoutCompletePage
 
-### Scenario 2: Validate overview page
+### Scenario 11: Validate overview page
 
 ID: TC-CHECK-002  
-Tag: @web @checkout @verify-overview  
+Tag: @web @checkout @verify-order @scenario11  
 Status: Passes
 
 Verifies that overview page displays correct data before finalization.
@@ -287,14 +266,70 @@ Item Total: $49.99
 Tax: $4.00
 Total: $53.99
 
+## Problem User Testing (2 scenarios)
+
+### Scenario 12: Problem user adds item from product detail page
+
+ID: TC-PROBLEM-001  
+Tag: @web @problem-user @cart @scenario12 @bug  
+Status: Fails (known bug)
+
+Tests cart functionality with problem_user account.
+
+Steps:
+
+1. Log in as problem_user
+2. Click "Sauce Labs Backpack" product name
+3. Click "Add to cart" on product detail page
+4. Navigate to cart
+5. Verify product is visible in cart
+
+Expected: Product name "Sauce Labs Backpack" is displayed in cart.
+
+Actual: Cart appears empty, product name is not displayed.
+
+Note: This is a known bug with problem_user account. Adding products from the product detail page causes display issues. However, adding directly from the product list works correctly.
+
+Related: See Detected_Issues.md for full bug report.
+
+### Scenario 13: Problem user checkout with field validation
+
+ID: TC-PROBLEM-002  
+Tag: @web @problem-user @checkout @checkout-info-validation @scenario13 @bug  
+Status: Expected to fail
+
+Tests checkout flow with problem_user account including field validation.
+
+Steps:
+
+1. Log in as problem_user
+2. Add "Sauce Labs Backpack" to cart
+3. Add "Sauce Labs Bike Light" to cart
+4. Navigate to cart
+5. Proceed to checkout
+6. Fill checkout information:
+   - First Name: John
+   - Last Name: Doe
+   - Zip Code: 10000
+7. Verify fields contain entered values
+8. Click Continue button
+9. Verify products in overview page
+10. Verify order can be completed
+
+Expected: Checkout process completes successfully.
+
+Actual: May fail due to known issues with problem_user account.
+
+Note: Problem user account has multiple intentional bugs. This scenario tests the full checkout flow including field validation before continuing.
+
 ## Statistics
 
 ### Overall
 
-- Scenarios: 12
+- Scenarios: 13
 - Passed: 11
-- Failed: 1 (known bug)
-- Pass rate: 92%
+- Failed: 2 (known bugs with problem_user)
+- Pass rate: 85%
 - Average time: ~3-4 seconds per test
 
 ### By feature

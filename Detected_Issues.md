@@ -1,6 +1,7 @@
 # Detected Issues
 
 ## Issue #1: Cart Item Name Not Displayed for Problem User
+Scenario: Problem user adds item from product detail page
 
 **Severity**: High  
 **Status**: Open  
@@ -17,21 +18,7 @@ When logged in as `problem_user`, product names are not displayed in the shoppin
 - Test Framework: CodeceptJS 3.7.5 with Playwright
 - User Account: problem_user
 
-### Test Scenario
-
-```gherkin
-Feature: Shopping Cart Management
-
-@web @cart @problem-user @scenario2 @bug
-Scenario: Problem user adds item from product detail page
-  Given User is logged in as "problem_user"
-  When Open product "Sauce Labs Backpack"
-  And Add product to the cart from product page
-  And Go to the cart
-  Then "Sauce Labs Backpack" should be visible in the cart
-```
-
-Feature file: `Web_UI/features/shopping_cart.feature`
+Feature file: `Web_UI/features/problem_user.feature`
 
 ### Steps to Reproduce
 
@@ -57,7 +44,7 @@ Shopping cart displays the added product with name "Sauce Labs Backpack" visible
 ### Test Output
 
 ```
-Problem user adds item from product detail page @web @cart @problem-user @scenario2 @bug
+Problem user adds item from product detail page @web @problem-user @cart @scenario12 @bug
   ✖ FAILED in 2873ms
 
 FAILURES:
@@ -75,7 +62,7 @@ Scenario Steps:
   ✔ I.amOnPage("/")
 ```
 
-Screenshot: `output/Problem_user_adds_item_from_product_detail_page_@web_@cart_@problem-user_@scenario2_@bug.failed.png`
+Screenshot: `output/Problem_user_adds_item_from_product_detail_page_@web_@problem-user_@cart_@scenario12_@bug.failed.png`
 
 ### Impact
 
@@ -89,40 +76,96 @@ Screenshot: `output/Problem_user_adds_item_from_product_detail_page_@web_@cart_@
 - Same test passes with standard_user
 - This appears to be intentional - problem_user is designed to demonstrate bugs
 - Test is tagged with @bug in feature file
-- Overall test pass rate: 11/12 (92%)
+- Overall test pass rate: 11/13 (85%) - two problem_user scenarios expected to fail
 
 ### Additional Observations
 
 - Adding product directly by clicking "Add to cart" button from the products list page - product is added normally
-- Even when this bug occurs (empty cart), it is possible to click the "Checkout" button despite the cart being empty
-- The application does not prevent access to the checkout process with an empty cart
+- The application does not prevent access to the checkout process (click on the "Checkout" button is still possible) with an empty cart
 
-### Test Results Summary
 
-**Authentication** (2/2 passed)
+## Issue #2: Last Name Field Does Not Accept Input for Problem User
+  Scenario: Problem user checkout with field validation
 
-- Standard user login
-- Locked out user rejection
+**Severity**: Critical  
+**Status**: Open  
+**Reproducibility**: 100%
 
-**Shopping Cart** (4/5 passed)
+### Summary
 
-- Add all products
-- Remove all items
-- Remove specific item
-- Verify cart badge count
-- Problem user bug (FAILED - this issue)
+When logged in as `problem_user`, the Last Name field on the checkout information page does not accept any input. This prevents the user from completing the checkout form and proceeding to the overview page.
 
-**Product Catalog** (3/3 passed)
+### Environment
 
-- Sort by name
-- Sort by price
-- View product details
+- Application: https://www.saucedemo.com
+- Browser: Chromium 141.0.7390.37
+- Test Framework: CodeceptJS 3.7.5 with Playwright
+- User Account: problem_user
 
-**Checkout** (2/2 passed)
+Feature file: `Web_UI/features/problem_user.feature`
 
-- Complete purchase flow
-- Verify checkout overview
+### Steps to Reproduce
+
+1. Login at https://www.saucedemo.com
+   - Username: problem_user
+   - Password: secret_sauce
+2. Add "Sauce Labs Backpack" to cart from products list
+3. Add "Sauce Labs Bike Light" to cart from products list
+4. Click shopping cart icon
+5. Click "Checkout" button
+6. Fill checkout information:
+   - First Name: John
+   - Last Name: Doe
+   - Zip Code: 11000
+7. Click "Continue" button
+8. Check checkout overview page
+
+### Expected Result
+
+User can fill in all checkout information fields (First Name, Last Name, Postal Code), click Continue, and proceed to the checkout overview page.
+
+### Actual Result
+
+- First Name field accepts input correctly
+- **Last Name field does NOT accept any input** - field remains empty after attempting to type
+- Postal Code field accepts input correctly
+- Clicking "Continue" button does nothing (validation fails because Last Name is required)
+- Cannot proceed to overview page due to missing Last Name
+
+### Test Output
+
+  1) Problem User Testing
+       Problem user checkout with field validation @web @problem-user @checkout @checkout-info-validation @scenario13 @bug:
+     
+  Expected overview to contain Sauce Labs Backpack. Actual items: []
+      at Actor.assertEqual (steps_file.ts:11:13)
+      at MetaStep.run (node_modules/codeceptjs/lib/step/meta.js:85:21)
+      at /Users/hristinastankovic/Downloads/codeceptjs-playwright-bdd-framework/Web_UI/steps/CheckoutSteps.ts:37:5
+
+**Root Cause**: The test expects to reach the overview page and verify products, but it never gets there because the Last Name field doesn't accept input, preventing form submission.
+
+Screenshot: `output/Problem_user_checkout_with_field_validation_@web_@problem-user_@checkout_@checkout-info-validation_@.failed.png`
+
+### Impact
+
+- **Critical blocker** for checkout flow with problem_user account
+- User cannot complete checkout information form
+- Last Name field is completely non-functional
+- Prevents reaching checkout overview page
+- Makes entire checkout process impossible for this user
+- Test automation cannot verify checkout flow for problem_user
+
+### Notes
+
+- Issue is specific to problem_user account only
+- Same test passes with standard_user
+- This appears to be intentional - problem_user is designed to demonstrate bugs
+- Test is tagged with @bug in feature file
+- **Only Last Name field is affected** - First Name and Postal Code fields work correctly
+- Products are successfully added to cart (badge shows correct count)
+- Issue occurs at checkout information page, before reaching overview
+- Bug is in the form input handling, not in the overview page display
 
 ### Recommendation
 
-This is a known issue with the problem_user test account. Use standard_user for normal testing. The problem_user account exists specifically to demonstrate application bugs and is marked accordingly in the test suite.
+This is a known issue with the problem_user test account. Use standard_user for checkout flow testing. The problem_user account exists specifically to demonstrate application bugs and is marked accordingly in the test suite.

@@ -40,16 +40,17 @@ Basic e-commerce stuff:
 - Cart operations (add/remove items)
 - Complete checkout process
 
-12 scenarios total. 11 pass, 1 fails on purpose because it tests a bug with the problem_user account.
+13 scenarios total. 11 pass, 2 fail on purpose because they test bugs with the problem_user account.
 
 # How tests are organized
 
-Split into 4 feature files:
+Split into 5 feature files:
 
 authentication.feature - login stuff (2 scenarios)
-shopping_cart.feature - cart operations, 5 scenarios including the bug test
 product_catalog.feature - product browsing and sorting (3 scenarios)
+shopping_cart.feature - cart operations (4 scenarios)
 checkout.feature - purchase flow (2 scenarios)
+problem_user.feature - problem user bug tests (2 scenarios)
 
 # Tech stack
 
@@ -66,9 +67,10 @@ checkout.feature - purchase flow (2 scenarios)
 Web_UI/
 ├── features/                   # Gherkin feature files
 │   ├── authentication.feature
-│   ├── shopping_cart.feature
 │   ├── product_catalog.feature
-│   └── checkout.feature
+│   ├── shopping_cart.feature
+│   ├── checkout.feature
+│   └── problem_user.feature
 ├── pages/                      # Page Object Model classes
 │   ├── LoginPage.ts
 │   ├── ProductsPage.ts
@@ -117,9 +119,10 @@ Run specific feature file:
 
 ```bash
 npx codeceptjs run Web_UI/features/authentication.feature
-npx codeceptjs run Web_UI/features/shopping_cart.feature
 npx codeceptjs run Web_UI/features/product_catalog.feature
+npx codeceptjs run Web_UI/features/shopping_cart.feature
 npx codeceptjs run Web_UI/features/checkout.feature
+npx codeceptjs run Web_UI/features/problem_user.feature
 ```
 
 Single scenario by specific tag:
@@ -127,16 +130,18 @@ Single scenario by specific tag:
 ```bash
 npx codeceptjs run --grep "@standard-login"
 npx codeceptjs run --grep "@locked-out"
+npx codeceptjs run --grep "@sort-name"
+npx codeceptjs run --grep "@sort-price"
+npx codeceptjs run --grep "@product-details"
 npx codeceptjs run --grep "@add-items"
 npx codeceptjs run --grep "@remove-items"
 npx codeceptjs run --grep "@remove-specific-item"
 npx codeceptjs run --grep "@verify-count"
-npx codeceptjs run --grep "@problem-user"
-npx codeceptjs run --grep "@sort-name"
-npx codeceptjs run --grep "@sort-price"
-npx codeceptjs run --grep "@product-details"
 npx codeceptjs run --grep "@complete-purchase"
 npx codeceptjs run --grep "@verify-order"
+npx codeceptjs run --grep "@problem-user"                 # Both problem_user tests
+npx codeceptjs run --grep "@scenario12"                   # Problem user - cart bug
+npx codeceptjs run --grep "@scenario13"                   # Problem user - checkout validation
 ```
 
 By feature tag:

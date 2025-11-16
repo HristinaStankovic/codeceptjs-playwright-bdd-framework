@@ -3,7 +3,7 @@ Feature: Checkout Process
     Background:
         Given User is logged in as "standard_user"
 
-    @web @checkout @complete-purchase @e2e
+    @web @checkout @complete-purchase @e2e @scenario10
     Scenario: Complete end-to-end purchase flow
         When Add all products to the cart
         And Go to the cart
@@ -12,7 +12,7 @@ Feature: Checkout Process
         Then Only non-removed items should be visible in the overview
         And Order confirmation should be visible
 
-    @web @checkout @verify-order
+    @web @checkout @verify-order @scenario11
     Scenario: Verify items in checkout overview
         When Add product "Sauce Labs Backpack" to the cart
         And Add product "Sauce Labs Bike Light" to the cart
