@@ -20,10 +20,10 @@
     "typescript": "^5.9.3"
   },
   "scripts": {
-    "test:web": "codeceptjs run --grep @web --steps",
-    "test:web:headless": "HEADLESS=true codeceptjs run --grep @web --steps",
-    "test:api": "API_ONLY=true codeceptjs run --grep @api --steps",
-    "test:all": "codeceptjs run --steps",
+    "test:web": "bash run-test.sh web",
+    "test:web:headless": "bash run-test.sh web:headless",
+    "test:api": "bash run-test.sh api",
+    "test:all": "bash run-test.sh all",
     "allure:generate": "allure generate output --clean",
     "allure:serve": "allure serve output",
     "clean": "npx rimraf output allure-report"

@@ -5,6 +5,10 @@ node_modules/
 output/
 allure-report/
 allure-results/
+logs/*.log
+
+# Keep logs folder structure but ignore log files
+!logs/.gitkeep
 
 # OS files
 .DS_Store

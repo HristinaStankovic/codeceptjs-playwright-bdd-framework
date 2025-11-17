@@ -124,9 +124,41 @@ With more details:
 npx codeceptjs run --grep @api --steps --verbose
 ```
 
-# Allure reports
+# How to examine test results
 
-Generate and view HTML report:
+## 1. Console Output
+
+When you run tests, you'll see real-time results in the terminal:
+
+Example output:
+```
+User Management API --
+  ✓ Get list of users and display odd IDs @scenario1 @get-users in 524ms
+  ✓ Create user with date validation @scenario2 @create-user in 387ms
+  ✓ Update user information @scenario3 @update-user in 412ms
+
+OK  | 6 passed   // 3s
+```
+
+## 2. Log Files
+
+All test executions are automatically saved to log files in the `logs/` folder with timestamps:
+
+```bash
+logs/
+└── api_test_20251117_145012.log
+```
+
+Log files contain complete test execution output including:
+- All executed steps
+- Request/response data
+- Pass/fail results
+- Response times
+- Error messages, if any
+
+## 3. Allure Reports (Detailed HTML Reports)
+
+Generate and view interactive HTML report:
 
 ```bash
 npm run allure:generate
@@ -145,13 +177,19 @@ npm run allure:generate && npm run allure:serve
 - Or close the terminal tab
 - The message "Shutting down the allure server at http://127.0.0.1:xxxxx" will appear
 
-Shows:
+The Allure report shows:
 
-- Test results
-- Response times
+- Test results with detailed breakdowns
+- Response times for each API call
 - Request/response data
-- History and trends
-- Statistics
+- History and trends across multiple runs
+- Statistics and charts
+
+## Summary: 3 Ways to Check Results
+
+1. **Console output** - immediate feedback while tests run
+2. **Log files** (`logs/` folder) - persistent record of all executions with full details
+3. **Allure reports** - interactive HTML reports with charts, trends, and request/response data
 
 ## Output accumulation
 
@@ -164,6 +202,8 @@ npm run clean && npm run test:api
 ```
 
 The `clean` command uses `rimraf` which works on all platforms (Windows, macOS, Linux). On macOS/Linux you could use `rm -rf`, but that doesn't work on Windows - `rimraf` solves this.
+
+**Note:** The `clean` command does NOT delete the `logs/` folder - logs are preserved as permanent records of all test executions, but you can allways delete the whole folder manually, it will be generated again after the next test run.
 
 Or run tests, generate report, and open it in one go:
 

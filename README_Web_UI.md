@@ -180,7 +180,7 @@ For debugging with detailed output:
 npx codeceptjs run --steps --verbose
 ```
 
-# Allure reports
+# Results examination - Allure reports
 
 Generate HTML report after running tests:
 
@@ -211,9 +211,26 @@ This opens an HTML report in your browser with:
 
 Report gets saved to allure-report/ folder.
 
+## 4. Screenshots
+
+Screenshots are automatically taken when tests fail and saved in the `output/` folder:
+```
+output/
+├── Problem_user_adds_item_from_product_detail_page_@web_@problem-user_@cart_@scenario12_@bug.failed.png
+└── Problem_user_checkout_with_field_validation_@web_@problem-user_@checkout_@checkout-info-validation_@.failed.png
+```
+
+These help you see exactly what went wrong visually.
+
+## Summary: 3 Ways to Check Results
+
+1. **Console output** - immediate feedback while tests run
+2. **Log files** (`logs/` folder) - persistent record of all executions
+3. **Allure reports** - detailed HTML reports with charts, history, and screenshots
+
 ## Output accumulation
 
-Test results accumulate in the `output/` folder locally, which allows you to track history across multiple test runs. This is useful for seeing trends over time.
+Test results accumulate in the `output/` folder locally, which allows you to track history across multiple test runs. This is useful for seeing trends over time. It is also useful to examine the test execution logs, stored in the logs folder.
 
 **To get fresh results only (web ui or headless mode):**
 
@@ -226,6 +243,8 @@ npm run clean && npm run test:web:headless
 ```
 
 The `clean` command uses `rimraf` which works on all platforms (Windows, macOS, Linux). On macOS/Linux you could use `rm -rf`, but that doesn't work on Windows - `rimraf` solves this.
+
+**Note:** The `clean` command does NOT delete the `logs/` folder - logs are preserved as permanent records of all test executions, but you can allways delete the whole folder manually, it will be generated again after the next test run.
 
 Or run everything in one command - clean, test, generate report, and open it:
 
