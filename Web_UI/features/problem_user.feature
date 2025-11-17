@@ -16,6 +16,9 @@ Feature: Problem User Testing
 
     @web @problem-user @checkout @checkout-info-validation @scenario13 @bug
     Scenario: Problem user checkout with field validation
+        # Note: This test is expected to fail due to known bugs with problem_user account
+        # The Last Name field on the checkout information page does not accept any input
+        # See: Detected_Issues.md for full bug report
         Given User is logged in as "problem_user"
         When Add product "Sauce Labs Backpack" to the cart
         And Add product "Sauce Labs Bike Light" to the cart
