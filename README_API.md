@@ -121,7 +121,7 @@ API_ONLY=true npx codeceptjs run --grep "@login-error"
 With more details:
 
 ```bash
-npx codeceptjs run --grep @api --steps --verbose
+API_ONLY=true npx codeceptjs run --grep @api --steps --verbose
 ```
 
 # How to examine test results
